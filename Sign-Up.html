@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sign up!!</title>
+
+    <style> 
+    
+     * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Inter, Century Gothic, Arial;
+    }
+
+    body {
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f1f5f9;
+        color: #1e293b;
+        line-height: 1.5;
+        min-height: 100vh;
+    }
+
+    #create-btn {
+        display: block;
+        margin: 30px auto 0 auto;
+        padding: 13px 16px;
+        font-size: 1rem;
+        font-weight: 700;
+        color: #ffffff;
+        background-color: #2b4897;
+        border: 3px solid #611584;
+    }
+
+    .wrapper h2{
+        text-align: center;
+        font-size : 24px;
+        padding: 24px;
+        margin: 0 0 4px 0;
+        font-size: 1.6rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        color: #1e3a8a;
+
+    }
+
+    .container {
+        padding: 32px;
+        background-color: #ffffff;
+        border: 1px solid #aab3be;
+        border-top: 6px solid #2b4897;
+    }
+
+    .form-intro {
+        text-align: center;
+        margin: 0 0 24px 0;
+        font-size: 0.95rem;
+        color: #64748b;
+    }
+
+
+    .inputBox input {
+        width: 100%;
+        padding: 10px;
+        font-size: 1rem;
+        border: 1px solid #cbd5e1;
+        border-radius: 4px;
+        outline: none;
+    }
+
+    .inputBox label{
+        display: block;
+        margin-top: 20px;
+        color: #162d4e;
+        font-weight: 500;
+    }
+
+    .hint {
+        margin: 5px 0 0 0;
+        font-size: 0.8rem;
+        color: #49576b;
+    }
+
+    .wrapper button{
+        margin-top:  5px;
+        
+    }
+    </style>
+</head>
+
+<body>
+    <div class = "wrapper">
+        <h2>Complete Sign-Up</h2>
+        <p class="form-intro">Fill in the details below to create your account.</p>
+
+        <div class = "container">
+            <form action="#" method="post">
+                <div class="inputBox">
+                    <label>Username</label>
+                    <input type = "text" id = "username" placeholder ="Enter your username">
+                    <p class="hint">Choose a unique username. Alphanumeric: 4-12 characters</p>
+                </div>
+                <div class="inputBox">
+                    <label>Phone Number</label>
+                    <input type = "nunber" id = "phone" placeholder = "Enter your phone number">
+                    <p class="hint">Digits only, 10 numbers.</p>
+                </div>
+                <div class="inputBox">
+                    <label>Password</label>
+                    <input type = "password" id = "password" placeholder = "Create a password">
+                    <p class="hint">At least 8 characters.</p>
+                </div>
+                <div class="inputBox">
+                    <label>Confirm Password</label>
+                    <input type = "password" id = "confirm_password" placeholder = "Re-enter your password">
+                    <p class="hint">Must match the password you entered above.</p>
+                </div>
+            
+
+                <button type="submit" id = "create-btn">Create Account</button>
+            </form>
+        </div>
+    </div>
+
+
+    <script>
+
+        const username = document.querySelector("#username");
+        const phone = document.querySelector("#phone");
+        const password = document.querySelector("#password");
+        const confirmPassword = document.querySelector("#confirm_password");
+        const createBtn = document.querySelector("#create-btn");
+
+        function checkUsername() {
+            const pattern = /^[a-zA-Z0-9]{4,12}$/;
+
+            if (pattern.test(username.value)) {
+                username.style.border = "2px solid green";
+                return true;
+            } else {
+                username.style.border = "2px solid red";
+                return false;
+            }
+        }
+
+        function checkPhone() {
+            const pattern = /^[0-9]{10}$/;
+
+            if (pattern.test(phone.value)) {
+                phone.style.border = "2px solid green";
+                return true;
+            } else {
+                phone.style.border = "2px solid red";
+                return false;
+            }
+        }
+
+        function checkPassword() {
+            if (password.value.length >= 8) {
+                password.style.border = "2px solid green";
+                return true;
+            } else {
+                password.style.border = "2px solid red";
+                return false;
+            }
+        }
+
+        function checkConfirm() {
+            if (confirmPassword.value === password.value && password.value.length >= 8) {
+                confirmPassword.style.border = "2px solid green";
+                return true;
+            } else {
+                confirmPassword.style.border = "2px solid red";
+                return false;
+            }
+        }
+
+        username.oninput = checkUsername;
+        phone.oninput = checkPhone;
+
+        password.oninput = function () {
+            checkPassword();
+
+            if (confirmPassword.value !== "") {
+                checkConfirm();
+            }
+        };
+
+        confirmPassword.oninput = checkConfirm;
+
+        createBtn.onclick = function (event) {
+            event.preventDefault();
+
+            const isUsernameValid = checkUsername();
+            const isPhoneValid = checkPhone();
+            const isPasswordValid = checkPassword();
+            const isConfirmValid = checkConfirm();
+
+            if (isUsernameValid && isPhoneValid && isPasswordValid && isConfirmValid) {
+                alert("Sign Up Successful");
+            }
+        };
+
+    </script>
+
+</body>
+</html>
